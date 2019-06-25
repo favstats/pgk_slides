@@ -1,0 +1,170 @@
+---
+title: "Package Development in R"
+subtitle: ""
+author: '<br><br><br><br>Fabio Votta <br><br> <a href="http://github.com/favstats"><i class="fa fa-github fa-fw"></i>&nbsp;favstats</a> <br> <a href="https://twitter.com/favstats"> <i class="fa fa-twitter fa-fw"></i>&nbsp;@favstats</a> <br> <a href="http://www.favstats.eu/"><i class="fa fa-address-card"></i>&nbsp; www.favstats.eu</a><br> <a href="mailto:fabio.votta@gmail.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; fabio.votta@gmail.com</a> <br><br>2019-29-06'
+output: 
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      highlightLanguage: r
+    includes:
+      in_header: header.html      
+    countIncrementalSlides: false
+    css: xaringan-themer.css
+---
+
+<style>
+.onehundredtwenty {
+  font-size: 120%;
+   }
+
+<style>
+.ninety {
+  font-size: 90%;
+   }
+
+.eightyfive {
+  font-size: 85%;
+   }
+   
+.eighty {
+  font-size: 80%;
+   }
+   
+.seventyfive {
+  font-size: 75%;
+   }
+   
+.seventy {
+  font-size: 70%;
+   }
+</style>
+
+
+
+```{r, include = F}
+pacman::p_load(tidyverse, knitr, haven, texreg, sjPlot, car, sjmisc, broom, psych, lm.beta, tidytemplate, stargazer, corrplot)
+
+#Default Options - kann bei Gebrauch geändert werden
+knitr::opts_chunk$set(warning = F, message = F) # Whether to display errors
+
+
+```
+
+
+
+### Everyone Struggles but it gets Better (more often)
+
+```{r, echo = F}
+knitr::include_graphics("images/r_first_then_new.png")
+```
+
+  + My experience is that everyone struggles but it gets better
+      + Awesome community
+      + Great documentation
+      + Active blogosphere with use cases and examples
+
+
+
+  
+
+---
+
+## Übungsaufgaben
+
+Benutzen Sie den esse03_mod.sav Datensatz. Benutzen Sie als Gruppierungsvariable „Länder“.
+
+
+##### Aufgabe 1
+
+*Berechnen Sie das Nullmodell (Modell0) für die AV: stflife (allgemeine Lebenszufriedenheit).*
+
+
+
+###### Aufgabe 1a
+
+*Berechnen Sie den ICC anhand des Nullmodells.* 
+
+
+###### Aufgabe 1b
+
+
+*Welche Aussage lässt sich auf Grundlage des Nullmodells treffen?* 
+
+
+
+---
+
+
+
+##### Aufgabe 2
+
+*Berechnen Sie Modell 1 mit der UV: Erwerbsstatus (0=erwerbstätig; 1=arbeitslos)*
+
+###### Aufgabe 2a
+
+*Interpretieren Sie den Koeffizienten für Erwerbsstatus inhaltlich (als Fixed-Effekt).*
+
+
+###### Aufgabe 2b
+
+
+*Führen Sie einen Likelihood-Ratio-Test (LRT) zwischen Modell0 und Modell1 durch (Achten Sie drauf, dass für den LRT die ML-Schätzung und nicht die REML gewählt werden muss).*
+
+###### Aufgabe 2c
+
+*Wie lautet Ihre Schlussfolgerung für Modell 1?*
+
+
+
+---
+
+##### Aufgabe 3
+
+*Lassen Sie in Modell 2 (zusätzlich) den Slope von Erwerbsstatus über die Länder variieren (Random setzen).*
+
+
+###### Aufgabe 3a
+
+*Führen Sie einen Likelihood-Ratio-Test zwischen Modell 1 und Modell 2 durch.*
+
+###### Aufgabe 3b
+
+*Interpretieren Sie den Random Slope von Erwerbsstatus inhaltlich (als Random Effekt).*
+
+
+---
+
+
+### Übungsaufgabe - SPSS
+
+<br>
+<br>
+<br>
+<br>
+
+<center>
+
+<a href="http://www.favstats.eu/smii_1819/08ua_spss_tippsntricks.html">Tipps und Tricks für die Übungsaufgabe 8 (SPSS)</a>
+
+</center>
+
+
+---
+
+
+### Übungsaufgabe - R
+
+<br>
+<br>
+<br>
+<br>
+
+<center>
+
+<a href="http://www.favstats.eu/smii_1819/08ua_r_tippsntricks.html">Tipps und Tricks für die Übungsaufgabe 8 (R)</a>
+
+</center>
+
