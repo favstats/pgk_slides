@@ -1,7 +1,7 @@
 ---
 title: "Package Development in R"
 subtitle: ""
-author: '<br><br><br><br>Fabio Votta <br><br> <a href="http://github.com/favstats"><i class="fa fa-github fa-fw"></i>&nbsp;favstats</a> <br> <a href="https://twitter.com/favstats"> <i class="fa fa-twitter fa-fw"></i>&nbsp;@favstats</a> <br> <a href="http://www.favstats.eu/"><i class="fa fa-address-card"></i>&nbsp; www.favstats.eu</a><br> <a href="mailto:fabio.votta@gmail.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; develop-rpkgs.netlify.com</a> <br><br>2019-29-06'
+author: '<br><br><br><br>Fabio Votta <br><br> <a href="http://github.com/favstats"><i class="fa fa-github fa-fw"></i>&nbsp;favstats</a> <br> <a href="https://twitter.com/favstats"> <i class="fa fa-twitter fa-fw"></i>&nbsp;@favstats</a> <br> <a href="http://www.favstats.eu/"><i class="fa fa-address-card"></i>&nbsp; www.favstats.eu</a><br> <a href="https://develop-rpkgs.netlify.com"/><i class="fa fa-paper-plane fa-fw"></i>&nbsp; develop-rpkgs.netlify.com</a> <br><br>2019-29-06'
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -53,6 +53,25 @@ knitr::opts_chunk$set(warning = F, message = F) # Whether to display errors
 
 ```
 
+### It's normal to struggle at first but it gets better!
+
+```{r, echo = F}
+knitr::include_graphics("images/r_first_then_new.png")
+```
+
+  + My experience is that this stuff isn't super easy... but it gets better!
+  + Mostly because of:
+      + Awesome inclusive community that is always ready to help
+      + Great documentation of existing packages and functions
+      + Active blogosphere with use cases and examples
+      + and much more!
+
+<br>
+
+Illustration adapted from [Allison Horst](https://twitter.com/allison_horst)
+
+---
+ 
 
 
 ## Overview
@@ -63,13 +82,13 @@ knitr::opts_chunk$set(warning = F, message = F) # Whether to display errors
 
 + Creating a Package
 
-+ Documentation (`roxygen2` & `devtools`)
++ Documentation (`roxygen2` & some `devtools`)
 
 + Unit Tests (with `testthat`)
 
 + Suggested Workflow
 
-+ Some Sources
++ Some Resources
 
 
 
@@ -144,6 +163,7 @@ class: center, middle, inverse
 > tfw your chosen package name is still available 
 
 ![](https://media.giphy.com/media/l3vR7aXoQX0OdHi48/giphy.gif)
+
 
 
 ---
@@ -248,9 +268,6 @@ create_tidy_package("~/git_projects/datenguideR")
 
 This function will also create a new package *but* it will also apply many great tidyverse conventions that will come in handy.
 
-```{r, include=F}
-source("https://gist.githubusercontent.com/jennybc/2bf1dbe6eb1f261dfe60/raw/c53fba8a861f82f90d895458e941a1056c8118f5/twee.R")
-```
 
 ---
 
@@ -293,8 +310,39 @@ class: center, middle, inverse
 ![](https://media.giphy.com/media/XGJY5KLuazndauTfZP/giphy.gif)
 
 
+
 ---
 
+class: center, middle, inverse
+
+![](http://fabian-brunke.com/portfolio-2019/wp-content/themes/portfolio/coming_soon.gif)
+
+## Let's start adding functions to our package!
+
+---
+
+
+## Naming Functions
+
+The `rOpenSci Package guide` states that:
+
+> Functions and arguments naming should be chosen to work together to form a common, logical programming API that is easy to read, and auto-complete.
+
+So in the best case scenario you come up with a naming scheme in the following style:
+
++ `object_verb`
+
+This scheme 
+
++ helps avoid namespace conflicts with packages that may have similar verbs
++ makes code readable and easy to auto-complete
+
+For example `stringr` functions all start with `str_*` whereas `memer` functions all start with `meme_*`.
+
+In our examples here we won't be using this naming style just for convenience but in your personal package you should absolutely consider using it!
+
+
+---
 
 class: center, middle, inverse
 
@@ -801,7 +849,7 @@ Writing NAMESPACE
 Writing add.Rd
 ```
 
-If you now type `?add` into R it should render the development description that [we saw earlier]().
+If you now type `?add` into R it should render the development description that [we saw earlier](https://develop-rpkgs.netlify.com/#23).
 
 ---
 
@@ -907,7 +955,7 @@ use_testthat()
 
 This will create a folder `tests` and a subfolder `testthat`. This is the folder where your tests will live.
 
-Since we created our package with `create_tidy_package` we don't need to run this part as this function automatically sets `testthat`.
+Since we created our package with `create_tidy_package` we don't need to run this part as this function automatically sets up `testthat`.
 
 ---
 
@@ -1257,7 +1305,9 @@ class: center, middle, inverse
 
  + Write some R code
  
- + Restart R session regularly & use `devtools::load_all()` to load your package
+ + Restart R session regularly 
+ 
+ + Use `devtools::load_all()` to load your package
  
  + Write documentation for code
  
@@ -1271,8 +1321,37 @@ class: center, middle, inverse
  
  
 ---
+
+## Useful stuff that I wasn't able to mention yet
+
+Add Package imports to `DESCRIPTION` with `usethis::use_package`:
+
+```{r, eval = F}
+use_package("dplyr")
+```
+
+
+Set up continuous integration (in this case Travis CI) with the following code:
+
+```{r, eval = F}
+use_travis()
+```
+
+Continuous integration allows you to run checks on your package code with various R versions and ensures that your package can run on different systems like Linux, Mac OSX & Windows.
+
+You can start reading about Travis CI here: [A BEGINNER'S GUIDE TO TRAVIS-CI FOR R](https://juliasilge.com/blog/beginners-guide-to-travis/).
+
+Set up an awesome website for your package (documentation) with the help of `pkgdown`.
+
+```{r, eval=F}
+use_pkgdown()
+```
+
+
+
+---
  
- ### Some Resources
+## Some Resources
  
 + [Writing an R Package from Scratch (Hilary Parker)](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/)
 
@@ -1282,9 +1361,13 @@ class: center, middle, inverse
 
 + [R packages by Hadley Wickham](http://r-pkgs.had.co.nz/)
 
++ [rOpenSci Packages: Development, Maintenance, and Peer Review](https://devguide.ropensci.org/)
+
 + [R Packages cheatsheet](https://rawgit.com/rstudio/cheatsheets/master/package-development.pdf)
 
 + [Generating .Rd files (roxygen2)](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html)
+
++ [Writing R Extensions]()
 
 + [usethis website](https://usethis.r-lib.org/index.html)
 
@@ -1303,24 +1386,3 @@ class: center, middle, inverse
 
 
 
----
-
-
-### Everyone Struggles but it gets Better
-
-```{r, echo = F}
-knitr::include_graphics("images/r_first_then_new.png")
-```
-
-  + My experience is that everyone struggles but it gets better
-      + Awesome inclusive community that is always ready to help
-      + Great documentation of packages and functions
-      + Active blogosphere with use cases and examples
-      + and much more!
-
-<br>
-
-Illustration adapted from [Allison Horst](https://twitter.com/allison_horst)
-
-
- 
