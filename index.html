@@ -79,8 +79,6 @@ Illustration adapted from [Allison Horst](https://twitter.com/allison_horst)
 
 + Unit Tests (with `testthat`)
 
-+ Suggested Workflow
-
 + Some Resources
 
 
@@ -1148,7 +1146,7 @@ test_that("result is more than 15", {
 
 
 ```r
-Error: Test failed: 'supplying string should throw error' * 
+Error: Test failed: 'result is more than 15' * 
 `result` is not strictly more than 15. Difference: -5
 ```
 
@@ -1246,48 +1244,6 @@ And when your package passes all checks you get the sweet feeling of getting the
 
 &lt;img src="images/check_results.png" width="827" /&gt;
 
-
-
----
-
-class: center, middle, inverse
-
-## Suggested Workflow
-
-![](https://media1.tenor.com/images/1ab17b5a431d5113f302396d8762f0b7/tenor.gif?itemid=3496932)
-
-
----
-
-
-## Suggested Workflow
-
- + Write some R code
-
-![](https://media1.tenor.com/images/72bf7922ac0b07b2f7f8f630e4ae01d2/tenor.gif?itemid=11364811)
-
-
-
----
-
-## Suggested Workflow
-
- + Write some R code
- 
- + Restart R session regularly 
- 
- + Use `devtools::load_all()` to load your package
- 
- + Write documentation for code
- 
- + Run `document` regularly
- 
- + Write unit tests for your code
- 
- + Run `test` regularly
- 
- + Run `check` every now and then
- 
  
 ---
 
