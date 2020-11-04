@@ -1,26 +1,29 @@
----
-title: "Package Development in R"
-subtitle: ""
-author: '<br><br><br><br>Fabio Votta <br><br> <a href="http://github.com/favstats"><i class="fa fa-github fa-fw"></i>&nbsp;favstats</a> <br> <a href="https://twitter.com/favstats"> <i class="fa fa-twitter fa-fw"></i>&nbsp;@favstats</a> <br> <a href="http://www.favstats.eu/"><i class="fa fa-address-card"></i>&nbsp; www.favstats.eu</a><br> <a href="https://develop-rpkgs.netlify.app"/><i class="fa fa-paper-plane fa-fw"></i>&nbsp;develop-rpkgs.netlify.app</a> <br><br>2020-11-04'
-output: 
-  xaringan::moon_reader:
-    lib_dir: libs
-    nature:
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
-      slideNumberFormat: "%current%<br>"
-    includes:
-      in_header: header.html      
-    css: xaringan-themer.css
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Package Development in R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="    Fabio Votta     favstats     @favstats     www.favstats.eu   develop-rpkgs.netlify.app   2020-11-04" />
+    <script src="libs/header-attrs-2.1/header-attrs.js"></script>
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Package Development in R
+### <br><br><br><br>Fabio Votta <br><br> <a href="http://github.com/favstats"><i class="fa fa-github fa-fw"></i> favstats</a> <br> <a href="https://twitter.com/favstats"> <i class="fa fa-twitter fa-fw"></i> <span class="citation">@favstats</span></a> <br> <a href="http://www.favstats.eu/"><i class="fa fa-address-card"></i>  www.favstats.eu</a><br> <a href="https://develop-rpkgs.netlify.app"/><i class="fa fa-paper-plane fa-fw"></i> develop-rpkgs.netlify.app</a> <br><br>2020-11-04
+
 ---
 
-<style>
+
+&lt;style&gt;
 .onehundredtwenty {
   font-size: 120%;
    }
 
-<style>
+&lt;style&gt;
 .ninety {
   font-size: 90%;
    }
@@ -44,24 +47,15 @@ output:
 .fivty {
   font-size: 50%;
    }
-</style>
+&lt;/style&gt;
 
 
 
-```{r, include = F}
-pacman::p_load(tidyverse, testthat, usethis, devtools)
 
-#Default Options - kann bei Gebrauch geändert werden
-knitr::opts_chunk$set(warning = F, message = F) # Whether to display errors
-
-
-```
 
 ### It's normal to struggle at first but it gets better!
 
-```{r, echo = F}
-knitr::include_graphics("images/r_first_then_new.png")
-```
+&lt;img src="images/r_first_then_new.png" width="5136" /&gt;
 
 
 .fivty[Illustration adapted from [Allison Horst](https://twitter.com/allison_horst)]
@@ -92,7 +86,7 @@ knitr::include_graphics("images/r_first_then_new.png")
 
 + Creating a Package
 
-+ Documentation (`roxygen2` & some `devtools`)
++ Documentation (`roxygen2` &amp; some `devtools`)
 
 + Unit Tests (with `testthat`)
 
@@ -112,7 +106,7 @@ knitr::include_graphics("images/r_first_then_new.png")
 
 --
 
-+ It's a great way to become active in the R community & give back
++ It's a great way to become active in the R community &amp; give back
 
 --
 
@@ -156,8 +150,9 @@ knitr::include_graphics("images/r_first_then_new.png")
 
 + Install the following packages:
 
-```{r, eval = F}
-pkgs <- c("devtools", "roxygen2", "usethis", "testthat")
+
+```r
+pkgs &lt;- c("devtools", "roxygen2", "usethis", "testthat")
 install.packages(pkgs)
 ```
 
@@ -178,14 +173,13 @@ And now?
 
 The `available` package will help check whether your desired package name is still.. well.. available:
 
-```{r, eval = F}
+
+```r
 library(available)
 available("datenguideR", browse = F)
 ```
 
-```{r, echo = F}
-knitr::include_graphics("images/available.png")
-```
+&lt;img src="images/available.png" width="1512" /&gt;
 
 
 ---
@@ -194,7 +188,7 @@ knitr::include_graphics("images/available.png")
 class: center, middle, inverse
 
 
-> tfw your chosen package name is still available 
+&gt; tfw your chosen package name is still available 
 
 ![](https://media.giphy.com/media/l3vR7aXoQX0OdHi48/giphy.gif)
 
@@ -235,13 +229,11 @@ The purpose of `usethis` is to
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/usethis.png")
-```
+&lt;img src="images/usethis.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
-> … automate repetitive tasks that arise during project setup and development, both for R packages and non-package projects.
+&gt; … automate repetitive tasks that arise during project setup and development, both for R packages and non-package projects.
 
 --
 
@@ -286,14 +278,12 @@ The following code will create a *minimal* R package:
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-library(usethis)
-knitr::include_graphics("images/usethis.png")
-```
+&lt;img src="images/usethis.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
-```{r, eval = F}
+
+```r
 library(usethis)
 create_package("~/git_projects/datenguideR")
 ```
@@ -304,7 +294,8 @@ All you need to do is specify a `path`. If it exists, it is used. If it does not
 
 But because *being tidy* is awesome we will be using `create_tidy_package`
 
-```{r, eval = F}
+
+```r
 create_tidy_package("~/git_projects/datenguideR")
 ```
 
@@ -317,7 +308,8 @@ This function will also create a new package *but* it will also apply many great
 
 These files should be in your working directory after creating a tidy package:
 
-```{r, eval = F}
+
+```r
 -- R
 -- tests
 -- DESCRIPTION
@@ -334,8 +326,9 @@ These files should be in your working directory after creating a tidy package:
 ### Creating your first R Package
 
 
-```{r, eval = F}
-{{-- R}}
+
+```r
+*-- R
 -- tests
 -- DESCRIPTION
 -- NAMESPACE
@@ -354,9 +347,10 @@ This is a folder which holds `.R` files with your package functions.
 ### Creating your first R Package
 
 
-```{r, eval = F}
+
+```r
 -- R
-{{-- tests}}
+*-- tests
 -- DESCRIPTION
 -- NAMESPACE
 -- cran-comments.md
@@ -374,10 +368,11 @@ This is a folder which holds tests for your package functions. We will talk abou
 ### Creating your first R Package
 
 
-```{r, eval = F}
+
+```r
 -- R
 -- tests
-{{-- DESCRIPTION}}
+*-- DESCRIPTION
 -- NAMESPACE
 -- cran-comments.md
 -- LICENSE.md
@@ -395,11 +390,12 @@ This is a file that contains meta-info about your package including authors, des
 ### Creating your first R Package
 
 
-```{r, eval = F}
+
+```r
 -- R
 -- tests
 -- DESCRIPTION
-{{-- NAMESPACE}}
+*-- NAMESPACE
 -- cran-comments.md
 -- LICENSE.md
 -- README.Rmd
@@ -414,12 +410,13 @@ This file holds namespaces of the package and is auto-generated by ´roxygen2´ 
 ### Creating your first R Package
 
 
-```{r, eval = F}
+
+```r
 -- R
 -- tests
 -- DESCRIPTION
 -- NAMESPACE
-{{-- cran-comments.md}}
+*-- cran-comments.md
 -- LICENSE.md
 -- README.Rmd
 -- README.md
@@ -434,13 +431,14 @@ Use this file to communicate with CRAN when you submit a package to their reposi
 ### Creating your first R Package
 
 
-```{r, eval = F}
+
+```r
 -- R
 -- tests
 -- DESCRIPTION
 -- NAMESPACE
 -- cran-comments.md
-{{-- LICENSE.md}}
+*-- LICENSE.md
 -- README.Rmd
 -- README.md
 ```
@@ -453,14 +451,15 @@ This file holds some template text for the license under which you publish your 
 ### Creating your first R Package
 
 
-```{r, eval = F}
+
+```r
 -- R
 -- tests
 -- DESCRIPTION
 -- NAMESPACE
 -- cran-comments.md
 -- LICENSE.md
-{{-- README.Rmd}}
+*-- README.Rmd
 -- README.md
 ```
 
@@ -472,7 +471,8 @@ This is an Rmarkdown file that can be used to generate the README of your packag
 ### Creating your first R Package
 
 
-```{r, eval = F}
+
+```r
 -- R
 -- tests
 -- DESCRIPTION
@@ -480,7 +480,7 @@ This is an Rmarkdown file that can be used to generate the README of your packag
 -- cran-comments.md
 -- LICENSE.md
 -- README.Rmd
-{{-- README.md}}
+*-- README.md
 ```
 
 
@@ -496,7 +496,8 @@ This is a markdown file that was generated by the README.Rmd file. You don't hav
 Finally, the following two lines of code will set up Git and a GitHub repository for your package: 
 
 
-```{r, eval = F}
+
+```r
 use_git()
 use_github()
 ```
@@ -508,7 +509,8 @@ This is important because people need to be able to install your package from a 
 
 Once you have run the two code pieces above you can do the following to install an already fully functioning R package on your computer.
 
-```{r, eval = F}
+
+```r
 devtools::install_github("{github_username}/{packagename}")
 ```
 
@@ -542,7 +544,7 @@ By first of all talking about how to *name* our functions
 
 The `rOpenSci Package guide` states that:
 
-> Functions and arguments naming should be chosen to work together to form a common, logical programming API that is easy to read, and auto-complete.
+&gt; Functions and arguments naming should be chosen to work together to form a common, logical programming API that is easy to read, and auto-complete.
 
 --
 
@@ -577,7 +579,8 @@ class: center, middle, inverse
 
 In order to get started with our first function we will create a new R script with the help of the `usethis` package:
 
-```{r, eval = F}
+
+```r
 use_r("hello")
 ```
 
@@ -587,12 +590,17 @@ This will create and open an `hello.R` file in your package's R subfolder; the p
 
 Let's create an easy function that will add two numbers:
 
-```{r}
-add <- function(x, y) {
+
+```r
+add &lt;- function(x, y) {
   x + y
 }
 
 add(1, 2)
+```
+
+```
+## [1] 3
 ```
 
 
@@ -613,12 +621,13 @@ class: center, middle, inverse
 With the help of *D O C U M E N T A T I O N*, of course!
 
 
-```{r, eval = F}
+
+```r
                        always
                        ⊂_ヽ
                        　 ＼＼   document
                        　　 ＼( ͡° ͜ʖ ͡°)
-                        　　　 >　⌒ヽ
+                        　　　 &gt;　⌒ヽ
                        　　　/ 　 へ＼
                        　　 /　　/　＼＼your
                        　　 ﾚ　ノ　　 ヽ_つ
@@ -650,9 +659,7 @@ Documentation is absolutely *central*.
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/roxygen2.png")
-```
+&lt;img src="images/roxygen2.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
@@ -663,7 +670,7 @@ It's basically the guidance for your users so they know how to use the functions
 
 Or as Hadley Wickham puts it:
 
-> Documentation is one of the most important aspects of good code. Without it, users won’t know how to use your package, and are unlikely to do so. 
+&gt; Documentation is one of the most important aspects of good code. Without it, users won’t know how to use your package, and are unlikely to do so. 
 
 --
 
@@ -686,16 +693,15 @@ Here to help us with documentation is `roxygen2` which *conveniently* creates a 
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/roxygen2.png")
-```
+&lt;img src="images/roxygen2.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
 
 This is how documentation for our `add` function might look like:
 
-```{r}
+
+```r
 #' Add together two numbers.
 #'
 #' @param x A number.
@@ -705,7 +711,7 @@ This is how documentation for our `add` function might look like:
 #' @examples
 #' add(1, 1)
 #' add(10, 1)
-add <- function(x, y) {
+add &lt;- function(x, y) {
   x + y
 }
 ```
@@ -730,15 +736,11 @@ Let's take a look at what this piece of roxygen code will generate.
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/roxygen2.png")
-```
+&lt;img src="images/roxygen2.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
-```{r, echo = F, fig.align='center', out.height=350, out.width=600}
-knitr::include_graphics("images/add.png")
-```
+&lt;img src="images/add.png" width="600" height="350" style="display: block; margin: auto;" /&gt;
 
 Ah. This looks more familiar!
 
@@ -758,17 +760,16 @@ Let's go through the original roxygen code line by line to understand it better.
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/roxygen2.png")
-```
+&lt;img src="images/roxygen2.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
 
 The first line of code highlighted here shows the title. 
 
-```{r,eval=F}
-{{#' Add together two numbers.}}
+
+```r
+*#' Add together two numbers.
 #'
 #' @param x A number.
 #' @param y A number.
@@ -777,7 +778,7 @@ The first line of code highlighted here shows the title.
 #' @examples
 #' add(1, 1)
 #' add(10, 1)
-add <- function(x, y) {
+add &lt;- function(x, y) {
   x + y
 }
 ```
@@ -801,18 +802,17 @@ This is a (very) short description of your function.
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/roxygen2.png")
-```
+&lt;img src="images/roxygen2.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
 
 You might have noticed this odd code in front of the documentation: `#'`
 
-```{r,eval=F}
+
+```r
 #' Add together two numbers.
-{{#'}}
+*#'
 #' @param x A number.
 #' @param y A number.
 #' @return The sum of \code{x} and \code{y}.
@@ -820,7 +820,7 @@ You might have noticed this odd code in front of the documentation: `#'`
 #' @examples
 #' add(1, 1)
 #' add(10, 1)
-add <- function(x, y) {
+add &lt;- function(x, y) {
   x + y
 }
 ```
@@ -841,26 +841,25 @@ Roxygen comments start with this symbol in order to distinguish them from your u
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/roxygen2.png")
-```
+&lt;img src="images/roxygen2.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
 
 Next up is the `@param` name descriptions for our functions.
 
-```{r,eval=F}
+
+```r
 #' Add together two numbers.
 #'
-{{#' @param x A number.}}
-{{#' @param y A number.}}
+*#' @param x A number.
+*#' @param y A number.
 #' @return The sum of \code{x} and \code{y}.
 #' @export
 #' @examples
 #' add(1, 1)
 #' add(10, 1)
-add <- function(x, y) {
+add &lt;- function(x, y) {
   x + y
 }
 ```
@@ -884,26 +883,25 @@ These lines of code describe the function’s inputs or *parameters*. The descri
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/roxygen2.png")
-```
+&lt;img src="images/roxygen2.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
 
 We continue with the `@return` name description.
 
-```{r,eval=F}
+
+```r
 #' Add together two numbers.
 #'
 #' @param x A number.
 #' @param y A number.
-{{#' @return The sum of \code{x} and \code{y}.}}
+*#' @return The sum of \code{x} and \code{y}.
 #' @export
 #' @examples
 #' add(1, 1)
 #' add(10, 1)
-add <- function(x, y) {
+add &lt;- function(x, y) {
   x + y
 }
 ```
@@ -929,26 +927,25 @@ By using `\code{}` we can also make sure that the variables x and y are written 
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/roxygen2.png")
-```
+&lt;img src="images/roxygen2.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
 
 We continue with the `@return` name description.
 
-```{r,eval=F}
+
+```r
 #' Add together two numbers.
 #'
 #' @param x A number.
 #' @param y A number.
-{{#' @return The sum of `x` and `y`.}}
+*#' @return The sum of `x` and `y`.
 #' @export
 #' @examples
 #' add(1, 1)
 #' add(10, 1)
-add <- function(x, y) {
+add &lt;- function(x, y) {
   x + y
 }
 ```
@@ -972,26 +969,25 @@ However, since we used `create_tidy_package` we also automatically turned on *ma
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/roxygen2.png")
-```
+&lt;img src="images/roxygen2.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
 
 Next up is the `@export` tag.
 
-```{r,eval=F}
+
+```r
 #' Add together two numbers.
 #'
 #' @param x A number.
 #' @param y A number.
 #' @return The sum of `x` and `y`.
-{{#' @export}}
+*#' @export
 #' @examples
 #' add(1, 1)
 #' add(10, 1)
-add <- function(x, y) {
+add &lt;- function(x, y) {
   x + y
 }
 ```
@@ -1011,26 +1007,25 @@ This one is pretty straightforward. If you want your functions to be available t
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/roxygen2.png")
-```
+&lt;img src="images/roxygen2.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
 
 Finally, the `@examples` tag.
 
-```{r,eval=F}
+
+```r
 #' Add together two numbers.
 #'
 #' @param x A number.
 #' @param y A number.
 #' @return The sum of `x` and `y`.
 #' @export
-{{#' @examples}}
-{{#' add(1, 1)}}
-{{#' add(10, 1)}}
-add <- function(x, y) {
+*#' @examples
+*#' add(1, 1)
+*#' add(10, 1)
+add &lt;- function(x, y) {
   x + y
 }
 ```
@@ -1050,9 +1045,7 @@ Adding examples to functions can *really* help your users figure out how your pa
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/devtools.png")
-```
+&lt;img src="images/devtools.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
@@ -1062,12 +1055,14 @@ Luckily, with the help of the `devtools` package this step is *really* easy to d
 
 Just type in the following code:
 
-```{r, eval = F}
+
+```r
 library(devtools)
 document()
 ```
 
-```{r, eval = F}
+
+```r
 Updating datenguideR documentation
 Writing NAMESPACE
 Loading datenguideR
@@ -1128,14 +1123,13 @@ class: center, middle, inverse
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/testthat.png")
-```
+&lt;img src="images/testthat.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
 
-```{r, eval = F}
+
+```r
     ＜⌒／ヽ-､＿
     ／＜_/＿＿＿＿／
     
@@ -1172,9 +1166,7 @@ Unit tests will help you with identifying issues within your code so you can pin
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/testthat.png")
-```
+&lt;img src="images/testthat.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
@@ -1189,7 +1181,8 @@ You write up example code with your package functions and define specific output
 
 To set up unit tests for your package with `testthat` you can simply run `use_testthat` (from our beloved `usethis` package):
 
-```{r, eval = F}
+
+```r
 use_testthat()
 ```
 
@@ -1211,9 +1204,7 @@ Since we created our package with `create_tidy_package` we don't need to run thi
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/testthat.png")
-```
+&lt;img src="images/testthat.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
@@ -1223,7 +1214,8 @@ How do set up individual tests?
 
 Simply run this code:
 
-```{r, eval = F}
+
+```r
 use_test("hello")
 ```
 
@@ -1231,7 +1223,8 @@ use_test("hello")
 
 This will create the following file:
 
-```{r, eval = F}
+
+```r
 tests/testthat/test-hello.R
 ```
 
@@ -1239,7 +1232,8 @@ tests/testthat/test-hello.R
 
 With this content:
 
-```{r, eval = F}
+
+```r
 test_that("multiplication works", {
   expect_equal(2 * 2, 4)
 })
@@ -1257,15 +1251,14 @@ test_that("multiplication works", {
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/testthat.png")
-```
+&lt;img src="images/testthat.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
 Let's take this short code apart:
 
-```{r, eval = T}
+
+```r
 test_that("multiplication works", {
   expect_equal(2 * 2, 4)
 })
@@ -1309,9 +1302,7 @@ In this case we use `expect_equal` which is quite straightforward. The 1st argum
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/testthat.png")
-```
+&lt;img src="images/testthat.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
@@ -1319,10 +1310,11 @@ Alright. So let's start testing our `add` function.
 
 First, we will test whether addition works as intended:
 
-```{r, eval = T}
+
+```r
 test_that("addition works as intended", {
   
-  result <- add(5, 5)
+  result &lt;- add(5, 5)
   
   expect_equal(result, 10)
 })
@@ -1343,15 +1335,14 @@ The test did not throw an error so this worked. Perfect!
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/testthat.png")
-```
+&lt;img src="images/testthat.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
 How about testing that supplying a string should throw an error?
 
-```{r, eval = T}
+
+```r
 test_that("supplying string should throw error", {
   
   expect_error(
@@ -1375,13 +1366,11 @@ Again, this ran without problems. So everything went as we expected!
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/testthat.png")
-```
+&lt;img src="images/testthat.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
-<br>
+&lt;br&gt;
 
 .center[
 
@@ -1402,18 +1391,17 @@ Now, let's try to break our tests!
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/testthat.png")
-```
+&lt;img src="images/testthat.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
 Let's try to test whether 5 + 5 is more than 15:
 
-```{r, eval = F}
+
+```r
 test_that("result is more than 15", {
   
-  result <- add(5, 5)
+  result &lt;- add(5, 5)
   
   expect_more_than(result, 15)
   
@@ -1422,7 +1410,8 @@ test_that("result is more than 15", {
 
 --
 
-```{r, eval = F}
+
+```r
 Error: Test failed: 'result is more than 15' * 
 `result` is not strictly more than 15. Difference: -5
 ```
@@ -1441,9 +1430,7 @@ Success! We failed! Since 5 + 5 is not more than 15 (it's actually 5 **less**) t
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/testthat.png")
-```
+&lt;img src="images/testthat.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
@@ -1467,9 +1454,7 @@ Now, we have succesfully written up three tests for our `add` function.
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/testthat.png")
-```
+&lt;img src="images/testthat.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
@@ -1477,13 +1462,12 @@ knitr::include_graphics("images/testthat.png")
 
 The `devtools` package will help us test all of our unit tests at once by running the following code within your package project:
 
-```{r, eval = F}
+
+```r
 test()
 ```
 
-```{r, echo = F}
-knitr::include_graphics("images/test.png")
-```
+&lt;img src="images/test.png" width="1307" /&gt;
 
 
 ---
@@ -1502,20 +1486,17 @@ We can also run `check` from `devtools` to test pretty much everything about our
 .pull-right[
 
 
-```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
-knitr::include_graphics("images/devtools.png")
-```
+&lt;img src="images/devtools.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
 
 ]
 
 
-```{r, eval = F}
+
+```r
 check()
 ```
 
-```{r, echo = F}
-knitr::include_graphics("images/check.png")
-```
+&lt;img src="images/check.png" width="1319" /&gt;
 
 
 ---
@@ -1527,9 +1508,7 @@ class: center, middle, inverse
 And when your package passes all checks you get the sweet feeling of getting the following feedback:
 
 
-```{r, echo = F}
-knitr::include_graphics("images/check_results.png")
-```
+&lt;img src="images/check_results.png" width="827" /&gt;
 
  
 ---
@@ -1538,7 +1517,8 @@ knitr::include_graphics("images/check_results.png")
 
 Add Package imports to `DESCRIPTION` with `usethis::use_package`:
 
-```{r, eval = F}
+
+```r
 use_package("dplyr")
 ```
 
@@ -1546,11 +1526,12 @@ use_package("dplyr")
 
 Set up continuous integration (in this case Travis CI) with the following code:
 
-```{r, eval = F}
+
+```r
 use_travis()
 ```
 
-Continuous integration allows you to run checks on your package code with various R versions and ensures that your package can run on different systems like Linux, Mac OSX & Windows.
+Continuous integration allows you to run checks on your package code with various R versions and ensures that your package can run on different systems like Linux, Mac OSX &amp; Windows.
 
 You can start reading about Travis CI here: [A BEGINNER'S GUIDE TO TRAVIS-CI FOR R](https://juliasilge.com/blog/beginners-guide-to-travis/).
 
@@ -1558,7 +1539,8 @@ You can start reading about Travis CI here: [A BEGINNER'S GUIDE TO TRAVIS-CI FOR
 
 Set up an awesome website for your package (documentation) with the help of `pkgdown`.
 
-```{r, eval=F}
+
+```r
 use_pkgdown()
 ```
 
@@ -1601,3 +1583,127 @@ class: center, middle, inverse
 
 
 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%<br>"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
