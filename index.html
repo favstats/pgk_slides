@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Package Development in R</title>
     <meta charset="utf-8" />
-    <meta name="author" content="    Fabio Votta     favstats     @favstats     www.favstats.eu    develop-rpkgs.netlify.com   2019-29-06" />
+    <meta name="author" content="    Fabio Votta     favstats     @favstats     www.favstats.eu    favstats.github.io/pgk_slides   2020-11-04" />
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -12,7 +12,7 @@
 class: center, middle, inverse, title-slide
 
 # Package Development in R
-### <br><br><br><br>Fabio Votta <br><br> <a href="http://github.com/favstats"><i class="fa fa-github fa-fw"></i> favstats</a> <br> <a href="https://twitter.com/favstats"> <i class="fa fa-twitter fa-fw"></i> <span class="citation">@favstats</span></a> <br> <a href="http://www.favstats.eu/"><i class="fa fa-address-card"></i>  www.favstats.eu</a><br> <a href="https://develop-rpkgs.netlify.com"/><i class="fa fa-paper-plane fa-fw"></i>  develop-rpkgs.netlify.com</a> <br><br>2019-29-06
+### <br><br><br><br>Fabio Votta <br><br> <a href="http://github.com/favstats"><i class="fa fa-github fa-fw"></i> favstats</a> <br> <a href="https://twitter.com/favstats"> <i class="fa fa-twitter fa-fw"></i> <span class="citation">@favstats</span></a> <br> <a href="http://www.favstats.eu/"><i class="fa fa-address-card"></i>  www.favstats.eu</a><br> <a href="https://favstats.github.io/pgk_slides"/><i class="fa fa-paper-plane fa-fw"></i>  favstats.github.io/pgk_slides</a> <br><br>2020-11-04
 
 ---
 
@@ -52,14 +52,18 @@ class: center, middle, inverse, title-slide
 
 &lt;img src="images/r_first_then_new.png" width="5136" /&gt;
 
+--
+
   + My experience is that this stuff isn't super easy... but it gets better!
+  
+--
+  
   + Mostly because of:
       + Awesome inclusive community that is always ready to help
       + Great documentation of existing packages and functions
       + Active blogosphere with use cases and examples
       + and much more!
 
-&lt;br&gt;
 
 Illustration adapted from [Allison Horst](https://twitter.com/allison_horst)
 
@@ -89,7 +93,11 @@ Illustration adapted from [Allison Horst](https://twitter.com/allison_horst)
 
 + R packages are a wonderful way to make functions and datasets easily accessible for everyone
 
+--
+
 + R really comes alive because of the many awesome packages that hundreds and hundreds of volunteers help create and maintain
+
+--
 
 + It's a great way to become active in the R community &amp; give back
 
@@ -107,17 +115,29 @@ Illustration adapted from [Allison Horst](https://twitter.com/allison_horst)
 ### Before we Start..
 
 + Creating packages is a process
-    + There's no need to do everything at once!
-    + Come up with milestones and focus on reaching them
-    + Ask yourself: what's the main purpose of your package?
-    + Should your package be about ...
-         + Data Visualization
-         + Implemetiation of statistical models
-         + Wrapping an existing API
-         + Data wrangling
-         + ???
-         + a little bit of everything?
+
+--
+
++ There's no need to do everything at once!
+
+--
+
++ Come up with milestones and focus on reaching them
+
+--
+    
++ Ask yourself: what's the main purpose of your package?
++ Should your package be about ...
+  + Data Visualization
+  + Implemetiation of statistical models
+  + Wrapping an existing API
+  + Data wrangling
+  + ???
+  + a little bit of everything?
   
+---
+
+### Before we Start..
 
 + Make sure you installed the latest R and Rstudio version
 
@@ -128,6 +148,16 @@ Illustration adapted from [Allison Horst](https://twitter.com/allison_horst)
 pkgs &lt;- c("devtools", "roxygen2", "usethis", "testthat")
 install.packages(pkgs)
 ```
+
+--
+
+The biggest problem?
+
+--
+
+*Choosing a package name*
+
+![](https://www.wired.com/wp-content/uploads/2016/05/1MINb-ejYCab5RKkhqAplDA-1.gif)
 
 ---
 
@@ -1358,9 +1388,25 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -1369,7 +1415,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
   }
 })();
-</script>
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 slideshow._releaseMath = function(el) {
