@@ -3,7 +3,8 @@
   <head>
     <title>Package Development in R</title>
     <meta charset="utf-8" />
-    <meta name="author" content="    Fabio Votta     favstats     @favstats     www.favstats.eu    favstats.github.io/pgk_slides   2020-11-04" />
+    <meta name="author" content="    Fabio Votta     favstats     @favstats     www.favstats.eu   develop-rpkgs.netlify.app   2020-11-04" />
+    <script src="libs/header-attrs-2.1/header-attrs.js"></script>
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -12,7 +13,7 @@
 class: center, middle, inverse, title-slide
 
 # Package Development in R
-### <br><br><br><br>Fabio Votta <br><br> <a href="http://github.com/favstats"><i class="fa fa-github fa-fw"></i> favstats</a> <br> <a href="https://twitter.com/favstats"> <i class="fa fa-twitter fa-fw"></i> <span class="citation">@favstats</span></a> <br> <a href="http://www.favstats.eu/"><i class="fa fa-address-card"></i>  www.favstats.eu</a><br> <a href="https://favstats.github.io/pgk_slides"/><i class="fa fa-paper-plane fa-fw"></i>  favstats.github.io/pgk_slides</a> <br><br>2020-11-04
+### <br><br><br><br>Fabio Votta <br><br> <a href="http://github.com/favstats"><i class="fa fa-github fa-fw"></i> favstats</a> <br> <a href="https://twitter.com/favstats"> <i class="fa fa-twitter fa-fw"></i> <span class="citation">@favstats</span></a> <br> <a href="http://www.favstats.eu/"><i class="fa fa-address-card"></i>  www.favstats.eu</a><br> <a href="https://develop-rpkgs.netlify.app"/><i class="fa fa-paper-plane fa-fw"></i> develop-rpkgs.netlify.app</a> <br><br>2020-11-04
 
 ---
 
@@ -42,6 +43,10 @@ class: center, middle, inverse, title-slide
 .seventy {
   font-size: 70%;
    }
+   
+.fivty {
+  font-size: 50%;
+   }
 &lt;/style&gt;
 
 
@@ -51,6 +56,9 @@ class: center, middle, inverse, title-slide
 ### It's normal to struggle at first but it gets better!
 
 &lt;img src="images/r_first_then_new.png" width="5136" /&gt;
+
+
+.fivty[Illustration adapted from [Allison Horst](https://twitter.com/allison_horst)]
 
 --
 
@@ -65,7 +73,6 @@ class: center, middle, inverse, title-slide
       + and much more!
 
 
-Illustration adapted from [Allison Horst](https://twitter.com/allison_horst)
 
 ---
  
@@ -151,7 +158,7 @@ install.packages(pkgs)
 
 --
 
-The biggest problem?
+And now?
 
 --
 
@@ -228,10 +235,16 @@ The purpose of `usethis` is to
 
 &gt; … automate repetitive tasks that arise during project setup and development, both for R packages and non-package projects.
 
+--
+
 As you can guess by the description `usethis` is **VERY** useful for package creation and we will be using its functions quite often during development.
+
+--
 
 We're going to focus on two types of functions within `usethis` 
 (although there are MANY more)
+
+--
 
 + `use_*` 
     + for example `use_pipe` to include the pipe operator in your package
@@ -277,6 +290,8 @@ create_package("~/git_projects/datenguideR")
 
 All you need to do is specify a `path`. If it exists, it is used. If it does not exist, it is created, provided that the parent path exists.
 
+--
+
 But because *being tidy* is awesome we will be using `create_tidy_package`
 
 
@@ -291,7 +306,7 @@ This function will also create a new package *but* it will also apply many great
 
 ### Creating your first R Package
 
-This is how your working directory should look like after creating a tidy package:
+These files should be in your working directory after creating a tidy package:
 
 
 ```r
@@ -299,18 +314,186 @@ This is how your working directory should look like after creating a tidy packag
 -- tests
 -- DESCRIPTION
 -- NAMESPACE
--- datenguideR.Rproj
 -- cran-comments.md
 -- LICENSE.md
--- README.md
 -- README.Rmd
+-- README.md
 ```
 
 
-We will talk about some of these in more detail soon but for now we will just accept them.
+---
+
+### Creating your first R Package
 
 
-Finally, the following two lines of code will set up a GitHub repository for your package: 
+
+```r
+*-- R
+-- tests
+-- DESCRIPTION
+-- NAMESPACE
+-- cran-comments.md
+-- LICENSE.md
+-- README.Rmd
+-- README.md
+```
+
+
+This is a folder which holds `.R` files with your package functions.
+
+---
+
+
+### Creating your first R Package
+
+
+
+```r
+-- R
+*-- tests
+-- DESCRIPTION
+-- NAMESPACE
+-- cran-comments.md
+-- LICENSE.md
+-- README.Rmd
+-- README.md
+```
+
+
+This is a folder which holds tests for your package functions. We will talk about tests in greater detail later.
+
+---
+
+
+### Creating your first R Package
+
+
+
+```r
+-- R
+-- tests
+*-- DESCRIPTION
+-- NAMESPACE
+-- cran-comments.md
+-- LICENSE.md
+-- README.Rmd
+-- README.md
+```
+
+
+This is a file that contains meta-info about your package including authors, description and  license. It's also the place for adding package dependencies.
+
+![](images/DESCRIPTION.png)
+
+---
+
+### Creating your first R Package
+
+
+
+```r
+-- R
+-- tests
+-- DESCRIPTION
+*-- NAMESPACE
+-- cran-comments.md
+-- LICENSE.md
+-- README.Rmd
+-- README.md
+```
+
+
+This file holds namespaces of the package and is auto-generated by ´roxygen2´ (more later). So we don't have to worry about it at all.
+
+---
+
+### Creating your first R Package
+
+
+
+```r
+-- R
+-- tests
+-- DESCRIPTION
+-- NAMESPACE
+*-- cran-comments.md
+-- LICENSE.md
+-- README.Rmd
+-- README.md
+```
+
+
+Use this file to communicate with CRAN when you submit a package to their repository. The text should provide an overview of how your package performs on different operating systems.
+
+---
+
+
+### Creating your first R Package
+
+
+
+```r
+-- R
+-- tests
+-- DESCRIPTION
+-- NAMESPACE
+-- cran-comments.md
+*-- LICENSE.md
+-- README.Rmd
+-- README.md
+```
+
+
+This file holds some template text for the license under which you publish your package.
+
+---
+
+### Creating your first R Package
+
+
+
+```r
+-- R
+-- tests
+-- DESCRIPTION
+-- NAMESPACE
+-- cran-comments.md
+-- LICENSE.md
+*-- README.Rmd
+-- README.md
+```
+
+
+This is an Rmarkdown file that can be used to generate the README of your package. The knitted version will be displayed on GitHub.
+
+---
+
+### Creating your first R Package
+
+
+
+```r
+-- R
+-- tests
+-- DESCRIPTION
+-- NAMESPACE
+-- cran-comments.md
+-- LICENSE.md
+-- README.Rmd
+*-- README.md
+```
+
+
+This is a markdown file that was generated by the README.Rmd file. You don't have to worry about this file.
+
+---
+
+
+### Creating your first R Package
+
+
+
+Finally, the following two lines of code will set up Git and a GitHub repository for your package: 
 
 
 
@@ -319,6 +502,17 @@ use_git()
 use_github()
 ```
 
+
+This is important because people need to be able to install your package from a public source. GitHub is primary source for that but there are others (Gitlab for example).
+
+--
+
+Once you have run the two code pieces above you can do the following to install an already fully functioning R package on your computer.
+
+
+```r
+devtools::install_github("{github_username}/{packagename}")
+```
 
 ---
 
@@ -339,6 +533,10 @@ class: center, middle, inverse
 
 ## Let's start adding functions to our package!
 
+--
+
+By first of all talking about how to *name* our functions
+
 ---
 
 
@@ -348,6 +546,8 @@ The `rOpenSci Package guide` states that:
 
 &gt; Functions and arguments naming should be chosen to work together to form a common, logical programming API that is easy to read, and auto-complete.
 
+--
+
 So in the best case scenario you come up with a naming scheme in the following style:
 
 + `object_verb`
@@ -356,6 +556,8 @@ This scheme
 
 + helps avoid namespace conflicts with packages that may have similar verbs
 + makes code readable and easy to auto-complete
+
+--
 
 For example `stringr` functions all start with `str_*` whereas `memer` functions all start with `meme_*`.
 
@@ -383,6 +585,8 @@ use_r("hello")
 ```
 
 This will create and open an `hello.R` file in your package's R subfolder; the place where all the functions of your package will live!
+
+--
 
 Let's create an easy function that will add two numbers:
 
@@ -462,11 +666,15 @@ Documentation is absolutely *central*.
 
 It's basically the guidance for your users so they know how to use the functions within your package.
 
+--
+
 Or as Hadley Wickham puts it:
 
 &gt; Documentation is one of the most important aspects of good code. Without it, users won’t know how to use your package, and are unlikely to do so. 
 
-There is a built-in functionality within R to document pacakges: `.Rd` files that are stored in the `man` subdirectory of your package. These files use a syntax that is similar to latex.
+--
+
+There is a built-in functionality within R to document packages: `.Rd` files that are stored in the `man` subdirectory of your package. These files use a syntax that is similar to Latex.
 
 Here to help us with documentation is `roxygen2` which *conveniently* creates a lot of the necessary files with its own more intuitive syntax style.
 
@@ -862,7 +1070,7 @@ Writing NAMESPACE
 Writing add.Rd
 ```
 
-If you now type `?add` into R it should render the development description that [we saw earlier](https://develop-rpkgs.netlify.com/#23).
+If you now type `?add` into R it should render the development description that we saw earlier.
 
 ---
 
@@ -884,9 +1092,15 @@ this is not everything of course.
 
 There are so much more things to know about documentation!
 
-I recommend the following source:
+I recommend the following sources:
+
+[Introduction to roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html)
 
 [Object documentation chapter from R Packages book](http://r-pkgs.had.co.nz/man.html)
+
+
+
+
 
 ---
 
@@ -928,7 +1142,13 @@ class: center, middle, inverse
     ￣￣￣￣￣￣￣
 ```
 
-Testing is really important to make sure your package is functioning as intended. As you keep developing and adding to your package code, keeping track of what might go wrong will become more and more complex. 
+Testing is really important to make sure your package is functioning as intended.
+
+--
+
+As you keep developing and adding to your package code, keeping track of what might go wrong will become more and more complex. 
+
+--
 
 Unit tests will help you with identifying issues within your code so you can pinpoint what went wrong and where.
 
@@ -957,12 +1177,16 @@ You write up example code with your package functions and define specific output
 1. If they are met, great, the test is passed! 
 2. If not, the test fails and you will know that something is wrong with your code and what failed.
 
+--
+
 To set up unit tests for your package with `testthat` you can simply run `use_testthat` (from our beloved `usethis` package):
 
 
 ```r
 use_testthat()
 ```
+
+--
 
 This will create a folder `tests` and a subfolder `testthat`. This is the folder where your tests will live.
 
@@ -995,12 +1219,16 @@ Simply run this code:
 use_test("hello")
 ```
 
+--
+
 This will create the following file:
 
 
 ```r
 tests/testthat/test-hello.R
 ```
+
+--
 
 With this content:
 
@@ -1038,9 +1266,15 @@ test_that("multiplication works", {
 
 In the first line of code we can see the function `test_that` which is our main tool for unit tests.
 
+--
+
 The first argument of `test_that` describes what is supposed to be tested whereas the second argument encapsulates the code to be tested within a curly bracket `{}` environment.
 
+--
+
 Within this environment we write up our expectations with the help of `testthat`'s `expect_*` functions, of which there are many.
+
+--
 
 In this case we use `expect_equal` which is quite straightforward. The 1st argument should be equal to the 2nd argument and if it's not, the test fails.
 
@@ -1174,6 +1408,8 @@ test_that("result is more than 15", {
 })
 ```
 
+--
+
 
 ```r
 Error: Test failed: 'result is more than 15' * 
@@ -1286,6 +1522,7 @@ Add Package imports to `DESCRIPTION` with `usethis::use_package`:
 use_package("dplyr")
 ```
 
+--
 
 Set up continuous integration (in this case Travis CI) with the following code:
 
@@ -1297,6 +1534,8 @@ use_travis()
 Continuous integration allows you to run checks on your package code with various R versions and ensures that your package can run on different systems like Linux, Mac OSX &amp; Windows.
 
 You can start reading about Travis CI here: [A BEGINNER'S GUIDE TO TRAVIS-CI FOR R](https://juliasilge.com/blog/beginners-guide-to-travis/).
+
+--
 
 Set up an awesome website for your package (documentation) with the help of `pkgdown`.
 
@@ -1341,6 +1580,9 @@ class: center, middle, inverse
 ### Thank you for listening
 
 ![](https://media1.tenor.com/images/da0f7d5d93faa11dfc36db1e6c6fdf2a/tenor.gif?itemid=6159389)
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
